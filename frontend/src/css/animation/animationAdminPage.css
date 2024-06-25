@@ -1,0 +1,234 @@
+@-webkit-keyframes slide-out-top {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+@-moz-keyframes slide-out-top {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+@-o-keyframes slide-out-top {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-top {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+@-o-keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+@-moz-keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+@-o-keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+@-moz-keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes become-visible {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.33
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes become-visible {
+  0% {
+    opacity: 0;
+
+  }
+  25% {
+    opacity: 0.33;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.animation-container {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.animation-front {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.animation-back {
+  width: 200px;
+  height: 200px;
+  visibility: hidden;
+}
+
+@media(max-width: 576px)
+{
+    .slide-storage-trigger:hover .animation-front {
+      animation: slide-out-right 2.5s;
+      animation-fill-mode: forwards;
+    }
+}
+
+@media(min-width: 577px)
+{
+    .slide-storage-trigger:hover .animation-front {
+      animation: slide-out-top 2.5s;
+      animation-fill-mode: forwards;
+    }
+}
+
+.slide-users-trigger:hover .animation-front {
+  animation: slide-out-left 2.5s;
+  animation-fill-mode: forwards;
+}
+
+.slide-orders-trigger:hover .animation-front {
+  animation: slide-out-right 2.5s;
+  animation-fill-mode: forwards;
+}
+
+.slide-storage-trigger:hover .animation-back,
+.slide-users-trigger:hover .animation-back,
+.slide-orders-trigger:hover .animation-back {
+  animation: become-visible 1.5s;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}

@@ -1,0 +1,142 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+
+
+.storage-btn {
+  background-image: url('../../public/assets/storage.svg');
+}
+
+.users-btn {
+  background-image: url('../../public/assets/users.svg');
+}
+
+.orders-btn {
+  background-image: url('../../public/assets/orders.svg');
+}
+
+$primary: #194F82;
+$secondary: #ffd166;
+$info: #6c757d;
+$light: #cff4fc;
+
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary,
+  "secondary": $secondary,
+  "info": $info,
+  "light": $light,
+));
+
+body {
+  font-family: 'Rubik' !important;
+};
+
+.btn.btn-outline-primary {
+  --bs-btn-hover-color: #ffd166;
+};
+
+#storage_pagination {
+  --bs-pagination-color: #194F82;
+}
+#storage_dropdown {
+--bs-dropdown-link-active-bg: #194F82;
+}
+
+
+#header .dropdown-menu {
+  background-color: $secondary;
+  color: $primary;
+  --bs-dropdown-color: $primary;
+  --bs-dropdown-link-color: $primary;
+  --bs-dropdown-link-active-bg: $secondary;
+  --bs-dropdown-link-active-color: $primary;
+  --bs-dropdown-link-hover-bg: $secondary;
+  --bs-dropdown-link-hover-color: $primary;
+  --bs-dropdown-min-width: 4rem;
+  --bs-dropdown-item-padding-y: 0;
+}
+
+#header .dropdown-toggle {
+  min-width: 4rem;
+}
+
+#header_title {
+  font-family: 'Rubik_Wet_Paint';
+  font-weight: 900 !important;
+  text-shadow: 2px 2px 2px black;
+}
+
+@media screen and (max-width: 600px) {
+  #header_title {
+    font-size: calc(1rem + 1.5vw);
+  }
+
+  .header_btns {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+
+.hide_modal {
+  display: none !important;
+}
+
+.modal_close_btn:hover {
+  cursor: pointer;
+}
+
+.eye-icon {
+  transform: translate(-2rem, 0.5rem);
+  fill: $primary;
+}
+
+.eye-icon:hover {
+  cursor: pointer;
+}
+
+.closeBtn16 {
+  width: 16px;
+  height: 16px;
+}
+
+.bg_change_trigger:hover .bg_change_onhover {
+  background-color: $secondary;
+}
+
+.storage-sort:hover {
+  cursor: pointer;
+  border-radius: 8px;
+  border-color: $primary;
+}
+
+.trash_icon {
+  fill: $primary;
+}
+
+.trash_icon:hover {
+  fill: $secondary;
+  cursor: pointer;
+}
+
+.trash_icon_sm {
+  height: 16px;
+  width: 16px;
+}
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: "Rubik_Wet_Paint";
+  src: url("../fonts/Rubik_Wet_Paint/RubikWetPaint-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}

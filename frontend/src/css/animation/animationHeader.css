@@ -1,0 +1,30 @@
+#header {
+   background: linear-gradient(109deg, #d9a93a, #ffd166);
+   background-size: 400% 400%;
+
+   -webkit-animation: GradientWave 49s ease infinite;
+   -moz-animation: GradientWave 49s ease infinite;
+   -o-animation: GradientWave 49s ease infinite;
+   animation: GradientWave 49s ease infinite;
+}
+
+@-webkit-keyframes GradientWave {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 51%}
+   100%{background-position:0% 50%}
+}
+@-moz-keyframes GradientWave {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 51%}
+   100%{background-position:0% 50%}
+}
+@-o-keyframes GradientWave {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 51%}
+   100%{background-position:0% 50%}
+}
+@keyframes GradientWave {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 51%}
+   100%{background-position:0% 50%}
+}
