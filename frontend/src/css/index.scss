@@ -19,6 +19,7 @@ $primary: #194F82;
 $secondary: #ffd166;
 $info: #6c757d;
 $light: #cff4fc;
+$bg-grey: #e9ecef;
 
 $theme-colors: map-merge($theme-colors, (
   "primary": $primary,
@@ -35,11 +36,20 @@ body {
   --bs-btn-hover-color: #ffd166;
 };
 
+.bg-grey {
+  background-color: $bg-grey !important;
+}
+
 #storage_pagination {
   --bs-pagination-color: #194F82;
 }
 #storage_dropdown {
 --bs-dropdown-link-active-bg: #194F82;
+}
+
+#orders_dropdown .dropdown-menu {
+  --bs-dropdown-link-active-bg: $primary;
+  --bs-dropdown-link-active-color: $secondary;
 }
 
 
@@ -82,8 +92,13 @@ body {
   display: none !important;
 }
 
-.modal_close_btn:hover {
+.pointer:hover {
   cursor: pointer;
+}
+
+.modal_close_btn {
+  width: 32px;
+  height: 32px;
 }
 
 .eye-icon {

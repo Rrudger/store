@@ -6,6 +6,7 @@ const initialState = {
   role: 'user',
   name: '',
   id: '',
+  orders: [],
 };
 
 const userSlice = createSlice({
@@ -20,6 +21,9 @@ const userSlice = createSlice({
     },
     alterName(state, { payload }) {
       return merge(state, { name: payload });
+    },
+    setOrders(state, { payload }) {
+      return merge(state, { orders: payload });
     }
   },
 });

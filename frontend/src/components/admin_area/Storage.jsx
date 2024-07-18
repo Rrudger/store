@@ -67,7 +67,19 @@ const Storage = () => {
   useEffect(() => {
     if (!token || role === 'user') {
       navigate('/');
-    }
+    };
+
+    tippy('.storage-sort', {
+      content: `${i18n.t('tooltips.storage')} ${order === 'asc'? '\u2193' : '\u2191'}`,
+      theme: "primary",
+      placement: "top-start",
+    });
+
+    tippy('#addBtn', {
+      content: i18n.t('tooltips.add_item'),
+      theme: "primary",
+      placement: "right",
+    });
   });
 
   const [viewedItem, setViewedItem] = useState(null);
@@ -115,17 +127,7 @@ const Storage = () => {
 
 
 
-  tippy('.storage-sort', {
-    content: `${i18n.t('tooltips.storage')} ${order === 'asc'? '\u2193' : '\u2191'}`,
-    theme: "primary",
-    placement: "top-start",
-  });
 
-  tippy('#addBtn', {
-    content: i18n.t('tooltips.add_item'),
-    theme: "primary",
-    placement: "right",
-  });
 
 
   return (

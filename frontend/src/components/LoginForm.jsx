@@ -62,7 +62,7 @@ const LoginForm = ({ show, handleClose }) => {
       <Modal show={show} onHide={handleClose}>
         <h1 className='d-flex justify-content-between mb-4 bg-primary text-secondary rounded p-3'>
           {i18n.t('login_form.title_and_submit')}
-          <CloseBtn onClick={handleClose} className='modal_close_btn pe-auto' />
+          <CloseBtn onClick={handleClose} className='modal_close_btn pointer pe-auto' />
         </h1>
         <Modal.Body>
 

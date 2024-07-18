@@ -16,7 +16,6 @@ import {
 const router = express.Router();
 router.use(express.json());
 router.use('/users_list', onlyAdminToken);
-router.use('/user_info', userOrAdminToken);
 router.use('/alter_user', onlyUserToken);
 router.use('/alter_password', onlyUserToken);
 router.use('/user', userOrSuperAdminToken);
@@ -82,22 +81,20 @@ router.delete('/user', async (req, res) => {
 
 router.get('/users_list', async (req, res) => {
   try {
-    const result = await pool.query("select id, name, created_at from users where role='user';");
-    res.send(result.rows)
+    let test = [];
+    const users = await pool.query("select id, name, created_at from users where role='user';");
+    const orders = await pool.query("select id, user_id from orders where status!='archived' AND status!='deleted';");
+    const result = users.rows.map((user) => {
+      const ordersCount = orders.rows.reduce((count, order) => {
+        return (order.user_id === user.id) ? count + 1 : count;
+      }, 0);
+      return { ...user, orders_count: ordersCount };
+    });
+    res.send(result);
   } catch (err) {
     res.status(500).send('Internal Server Error');
   }
 })
-
-router.get('/user_info', async (req, res) => {
-  const { id } = req.query;
-  try {
-    const result = await pool.query(`select name, created_at from users where id='${id}';`);
-    res.send(result.rows[0])
-  } catch (err) {
-    res.status(500).send('Internal Server Error');
-  }
-});
 
 router.post('/alter_user', async (req, res) => {
   const { id, attr, value } = req.body;

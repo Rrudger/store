@@ -1,8 +1,8 @@
 import { createSlice, current } from '@reduxjs/toolkit';
-import { merge } from 'lodash';
+import { isEmpty, merge } from 'lodash';
 
 const initialState = {
-  current_user: {},
+  userOrders: [],
   usersList: [],
 };
 
@@ -10,8 +10,9 @@ const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
-    setCurrentUser(state, { payload }) {
-      return merge(state, { current_user: payload });
+    setUserOrders(state, { payload }) {
+    return { usersList: state.usersList, userOrders: payload }
+
     },
     setUsersList(state, { payload }) {
       return merge(state, { usersList: payload });

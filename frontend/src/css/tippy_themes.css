@@ -15,3 +15,21 @@
 .tippy-box[data-theme~='primary'][data-placement^='right'] > .tippy-arrow::before {
   border-right-color: #194F82;
 }
+
+.tippy-box[data-theme~='secondary'] {
+  background-color: #dee2e6;
+  color: #194F82;
+}
+
+.tippy-box[data-theme~='secondary'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: #194F82;
+}
+.tippy-box[data-theme~='secondary'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: #194F82;
+}
+.tippy-box[data-theme~='secondary'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: #194F82;
+}
+.tippy-box[data-theme~='secondary'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: #194F82;
+}

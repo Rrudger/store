@@ -1,113 +1,85 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
-  Row,
-  Col,
-  Modal,
-  Button,
 } from 'react-bootstrap';
+import { isEqual, isEmpty } from 'lodash';
 import { toast, ToastContainer } from 'react-toastify';
 import i18n from '../../i18n';
 import { useNavigate } from 'react-router-dom';
 import { actions as adminActions} from '../../slices/adminSlice.js';
-import { deleteAccount, getUserInfo } from '../../utils/userUtils.js';
-
-const UserCard = ({ id, name, created_at }) => {
-  const navigate = useNavigate();
-
-  const role = useSelector((state) => state.userState.role);
-
-  const date = new Date(created_at);
-  const month = date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth();
-
-  const [showModal, setShowModal] = useState(false);
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
-
-  const handleDeleteAccount = async () => {
-    try {
-      await deleteAccount(id);
-      toast.success(i18n.t('admin.deleteSuccessMessage'));
-      handleClose();
-      setTimeout(() => {
-        navigate('/admin');
-      }, "1500");
-    } catch (err) {
-      toast.error(err.response.data)
-    }
-  }
-
-  return (
-    <Row className='border border-2 border-primary rounded shadow'>
-      <Row className='mt-4'>
-        <h4>
-          {`Name: ${name}`}
-        </h4>
-      </Row>
-      <Row className='mt-4'>
-        <div>
-          {`Created at: ${date.getDate()}/${month}/${date.getFullYear()}`}
-        </div>
-      </Row>
-      <Row className='mt-4'>
-        <div>
-          {`Active orders: `}
-        </div>
-      </Row>
-      <Row className='mt-4'>
-        <div>
-          {`Archived orders: `}
-        </div>
-      </Row>
-
-      <Row className="my-4 d-grid gap-2">
-        <Col xs='6'>
-          <Button onClick={handleShow} variant="outline-danger" className={
-            role === 'superadmin' ? 'text-nowrap' : 'text-nowrap disabled'
-          }>
-            {i18n.t('admin.deleteAccBtn')}
-          </Button>
-        </Col>
-      </Row>
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{i18n.t('admin.modal_acc_title')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {i18n.t('admin.modal_acc_body')}
-        </Modal.Body>
-        <Modal.Footer>
-         <Button onClick={handleClose} variant="info">{i18n.t('admin.modal_acc_cancel_btn')}</Button>
-         <Button onClick={handleDeleteAccount} variant="danger">{i18n.t('admin.modal_acc_delete_btn')}</Button>
-       </Modal.Footer>
-      </Modal>
-    </Row>
-  )
-}
+import { actions as userActions} from '../../slices/userSlice.js';
+import { getOrders } from '../../utils/dbUtils.js';
+import { logOut } from '../../utils/utils.js';
+import { getUsersList } from '../../utils/userUtils.js';
+import UserCard from './UserCard.jsx';
+import OrdersList from './OrdersList.jsx';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const id = localStorage.getItem('current_user');
-  const currentUser = useSelector((state) => state.adminState.current_user);
+  const currentUser = useSelector((state) => state.adminState.usersList)
+  .filter((user) => user.id === id)[0];
+  const orders = useSelector((state) => state.adminState.userOrders);
+  const activeOrders = isEmpty(orders) ? 0 : orders.reduce((count, curr) => {
+    return !['deleted', 'archived'].includes(curr.status) ? count + 1 : count
+  }, 0);
+  const archivedOrders = isEmpty(orders) ? 0 : orders.length - activeOrders;
 
-  getUserInfo(id)
-  .then((response) => {
-    dispatch(adminActions.setCurrentUser(response.data));
-  })
-  .catch((err) => {
-    toast.error(err.message);
+  useEffect(() => {
+      getOrders(id)
+      .then((response) => {
+        if (!isEqual(response.data, orders)) {
+          dispatch(adminActions.setUserOrders(response.data))
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          toast.error(err.response.data);
+          setTimeout(() => {
+            logOut();
+            dispatch(userActions.logOut());
+            navigate('/');
+          }, "1000");
+        } else {
+          toast.error(err.message);
+        }
+      });
+
+      if (isEmpty(currentUser)) {
+        getUsersList()
+        .then((response) => {
+          dispatch(adminActions.setUsersList(response.data));
+        })
+        .catch((err) => {
+          toast.error(err.response.data);
+          if (err.response.status === 403) {
+            setTimeout(() => {
+              localStorage.clear();
+              dispatch(userActions.logOut());
+              navigate('/');
+            }, "1500");
+          }
+        })
+      }
+
   });
 
 
   return (
     <Container>
-      {currentUser &&
+      {!isEmpty(currentUser) &&
+        <>
         <UserCard id={id}
         name={currentUser.name}
-        created_at={currentUser.created_at}
+        created_at={new Date(currentUser.created_at)}
+        activeOrders={activeOrders}
+        archivedOrders={archivedOrders}
         />
+        <OrdersList orders={orders}/>
+        </>
       }
       <ToastContainer />
     </Container>

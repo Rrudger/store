@@ -40,6 +40,8 @@ export default {
       cancel: 'cancel',
       remove_all: 'remove all',
       checkout: 'Proceed to checkout',
+      archive: 'Archived orders',
+      active: 'Active orders',
     },
     add_modal: {
       storage: {
@@ -114,6 +116,23 @@ export default {
     header: {
       title: 'Aaa STORE',
       badge: 'items in cart'
-    }
+    },
+    user_orders: {
+      no_orders: 'You have no orders yet...',
+      delivery: 'delivery:',
+      tippy_status: 'The order has been',
+      tippy_date: 'Created at',
+      paid: 'paid',
+      sent: 'sent',
+      cancelled: 'cancelled',
+      processed: 'processed',
+      archived: 'archived',
+    },
+    admin_orders: {
+      dropdown_title: 'Sort by: ',
+      sort_by_date: 'date',
+      sort_by_user: 'user',
+      sort_by_status: 'status',
+    },
   },
 };

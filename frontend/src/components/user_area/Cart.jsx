@@ -32,11 +32,11 @@ const Cart = () => {
   const total = getSum(subTotal.int, subTotal.fract, deliveryCost.int, deliveryCost.fract);
 
   const id = useSelector((state) => state.userState.id);
-  const orderPayed = true;
+  const orderPaid = 'paid';
   const payAndPostOrder = async () => {
     if (logged) {
     try {
-      await postOrder(id, cart, orderPayed);
+      await postOrder(id, cart, orderPaid);
       toast.success(i18n.t('cart.success_toast'));
       setTimeout(() => {
         dispatch(cartActions.cleanCart())

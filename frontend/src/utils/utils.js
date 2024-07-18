@@ -26,6 +26,13 @@ const getPriceStr = ( intVal, fractVal, cur ) => {
   return `${int}.${fract === 0 ? '00' : fract} ${curList[upperCase(cur)]}`
 };
 
+const getPriceStrNoCur = ( intVal, fractVal ) => {
+  const int = Number(intVal);
+  const fract = Number(fractVal);
+  if (int === 0 && fract === 0 ) return `0`
+  return `${int}.${fract === 0 ? '00' : fract}`
+};
+
 const getProduct = (int, fract, quantity) => {
   const price = Number(`${int}.${fract}`);
   const amount = (price * quantity)
@@ -97,16 +104,29 @@ const sortByPrice = (list) => {
     };
 
   });
+};
+
+const sortByTime = (list) => {
+  return Object.keys(list).sort((a, b) => {
+    const aItem = list[a]['created_at'];
+    const bItem = list[b]['created_at'];
+    if (aItem > bItem) return 1;
+    if (aItem < bItem) return -1;
+    if (aItem == bItem) return 0;
+
+  });
 }
 
 const sortBy = (attr, order, list) => {
   if (order === 'asc') {
     if (attr === 'name') return sortByName(list);
-    if (attr === 'price') return sortByPrice(list)
+    if (attr === 'price') return sortByPrice(list);
+    if (attr === 'time') return sortByTime(list);
     return sortByQuantity(attr, list);
   }
   if (attr === 'name') return sortByName(list).reverse();
   if (attr === 'price') return sortByPrice(list).reverse();
+  if (attr === 'time') return sortByTime(list).reverse();
   return sortByQuantity(attr, list).reverse();
 
 };
@@ -123,6 +143,7 @@ const logOut = () => {
 
 export {
   getPriceStr,
+  getPriceStrNoCur,
   getProduct,
   getSum,
   logOut,

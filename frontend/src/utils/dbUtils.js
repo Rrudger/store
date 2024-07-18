@@ -4,6 +4,30 @@ const getStorage = async () => {
   return axios.get('http://localhost:5001/storage/goods_list');
 };
 
+const getOrders = async (id) => {
+  const token = localStorage.getItem('token');
+  return axios.get(`http://localhost:5001/orders/user_orders?id=${id}`,
+    {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json'
+    }
+  }
+);
+};
+
+const getActiveOrders = async () => {
+  const token = localStorage.getItem('token');
+  return axios.get(`http://localhost:5001/orders/active_orders`,
+    {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json'
+    }
+  }
+);
+};
+
 const addItem = async (values) => {
   const token = localStorage.getItem('token');
   return axios.post('http://localhost:5001/storage/add',
@@ -69,6 +93,8 @@ export {
   addItem,
   alterItem,
   deleteItem,
+  getActiveOrders,
+  getOrders,
   getStorage,
   postOrder,
 }

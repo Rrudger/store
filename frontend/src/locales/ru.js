@@ -39,6 +39,8 @@ export default {
       add: 'добавить',
       remove_all: 'удалить все',
       checkout: 'Оформить покупку',
+      archive: 'История заказов',
+      active: 'Активные заказы',
     },
     add_modal: {
       storage: {
@@ -113,6 +115,23 @@ export default {
     header: {
       title: 'Aaa STORE',
       badge: 'товаров в корзине'
-    }
+    },
+    user_orders: {
+      no_orders: 'У вас пока нет заказов...',
+      delivery: 'доставка:',
+      tippy_status: 'Заказ был',
+      tippy_date: 'Заказ размещен',
+      paid: 'оплачен',
+      sent: 'отправлен',
+      cancelled: 'отменен',
+      processed: 'взят в обработку',
+      archived: 'отправлен в архив',
+    },
+    admin_orders: {
+      dropdown_title: 'Сортировать:',
+      sort_by_date: 'по дате',
+      sort_by_user: 'по пользователям',
+      sort_by_status: 'по статусу',
+    },
   },
 };

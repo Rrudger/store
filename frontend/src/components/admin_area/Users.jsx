@@ -17,7 +17,6 @@ import { getUsersList } from '../../utils/userUtils.js';
 const UserRow = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const activeOrders = 0;
   const date = new Date(user.created_at);
   const month = date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth();
   const handleOpenUser = () => {
@@ -33,7 +32,7 @@ const UserRow = ({ user }) => {
           {`created at ${date.getDate()}/${month}/${date.getFullYear()}`}
         </div>
         <Badge bg="primary" pill data-tooltip-id="my-tooltip-1">
-          {activeOrders}
+          {user.orders_count}
         </Badge>
         <Tooltip id="my-tooltip-1" place="bottom" variant="info" content="active orders" />
     </ListGroup.Item>
