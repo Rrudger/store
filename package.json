@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "build": "npm run build --prefix frontend",
+ "start": "start-server -s ./frontend/build",
     "start-server": "node server/server.js",
     "build-frontend": "npm run build --prefix frontend",
     "start-frontend": "npm run start --prefix frontend",
