@@ -13,6 +13,7 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     setLang(state, { payload }) {
+      localStorage.setItem('lang', payload);
       return merge(state, { lang: payload });
     },
     setGoodsList(state, { payload }) {

@@ -16,9 +16,10 @@ const getOrders = async (id) => {
 );
 };
 
-const getActiveOrders = async () => {
+const selectOrders = async (page) => {
   const token = localStorage.getItem('token');
-  return axios.get(`http://localhost:5001/orders/active_orders`,
+  const endPoint = page === 'orders' ? 'active_orders' : 'archived_orders';
+  return axios.get(`http://localhost:5001/orders/${endPoint}`,
     {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -72,6 +73,22 @@ const deleteItem = (id) => {
 )
 };
 
+const switchStatus = (id, newStatus) => {
+  const token = localStorage.getItem('token');
+  return axios.post(`http://localhost:5001/orders/switch_status`,
+    {
+      id: id,
+      newStatus: newStatus.toLowerCase(),
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'content-type': 'application/json'
+      }
+    }
+  )
+};
+
 const postOrder = (id, cart, status) => {
   const token = localStorage.getItem('token');
   return axios.post('http://localhost:5001/orders/addOrder',
@@ -93,8 +110,9 @@ export {
   addItem,
   alterItem,
   deleteItem,
-  getActiveOrders,
   getOrders,
   getStorage,
   postOrder,
+  selectOrders,
+  switchStatus,
 }

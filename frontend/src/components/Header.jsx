@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -44,15 +44,17 @@ const Header = () => {
   const role = useSelector((state) => state.userState.role);
   const itemsNum = useSelector((state) => state.cartState.itemsNum);
 
-  if (!localStorage.getItem('lang')) localStorage.setItem('lang', 'en');
+
   const lang = localStorage.getItem('lang');
   const langList = useSelector((state) => state.mainState.langList);
+  //const lang = useSelector((state) => state.mainState.lang);
   const [curLang, setLang] = useState(lang);
   const handleChangeLang = (lang) => (e) => {
     const newLang = lang;
     setLang(newLang);
-    localStorage.setItem('lang', lang);
-  };
+    dispatch(mainActions.setLang(newLang));
+
+  }
 
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);

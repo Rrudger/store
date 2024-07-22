@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import {
   Row,
 } from 'react-bootstrap';
+import { findIndex } from 'lodash';
 import { sortBy } from '../../utils/utils.js';
 import OrderCard from '../user_area/OrderCard.jsx';
 
-const OrdersList = ({ orders }) => {
+const OrdersList = ({ orders, mode, sortCr }) => {
   const goodsList = useSelector((state) => state.mainState.goodsList);
-  const keys = sortBy('time', 'des', orders)
+  const keys = sortBy(sortCr, 'des', orders);
 
   return (
     <Row>
@@ -25,8 +26,10 @@ const OrdersList = ({ orders }) => {
 
       });
 
-      return <OrderCard key={key} order={{
+      return <OrderCard key={key} mode={mode} order={{
         id: orders[key].id,
+        user_id: orders[key].user_id,
+        user_name: orders[key].user_name,
         created_at: orders[key].created_at,
         status: orders[key].status,
         itemsList: itemsList,

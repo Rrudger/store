@@ -47,7 +47,7 @@ body {
 --bs-dropdown-link-active-bg: #194F82;
 }
 
-#orders_dropdown .dropdown-menu {
+.noActiveDropdown .dropdown-menu {
   --bs-dropdown-link-active-bg: $primary;
   --bs-dropdown-link-active-color: $secondary;
 }

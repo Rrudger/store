@@ -8,40 +8,91 @@ import {
   Row,
 } from 'react-bootstrap';
 import i18n from '../../i18n';
+import { toast, ToastContainer } from 'react-toastify';
+import { isEmpty } from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { actions as userActions} from '../../slices/userSlice.js';
-import ActiveOrders from './ActiveOrders.jsx';
-import ArchivedOrders from './ArchivedOrders.jsx';
+import { actions as userActions } from '../../slices/userSlice.js';
+import { actions as adminActions } from '../../slices/adminSlice.js';
+import { selectOrders } from '../../utils/dbUtils.js';
+import { getUsersList } from '../../utils/userUtils.js';
+import OrdersList from './OrdersList.jsx';
 
 const Orders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const usersList = useSelector((state) => state.adminState.usersList);
+  const usersNames = usersList.reduce((result, user) => {
+    const newRow = { [user.id]: user.name };
+    return {...result, ...newRow}
+  },{});
+
+  const [page, setPage] = useState('orders');
+  const handleSwitchPage = () => {
+    page === 'orders' ? setPage('archive') : setPage('orders')
+  };
+
+  const stateEndPoint = page == 'orders' ? 'activeOrders' : 'archivedOrders';
+  const orders = useSelector((state) => state.adminState[stateEndPoint]);
+  const ordersWithNames = orders.map((order) => {
+    return {...order, user_name: usersNames[order.user_id]}
+  });
+
+
   const token = localStorage.getItem('token');
   const role = useSelector((state) => state.userState.role);
   useEffect(() => {
     if (!token || role === 'user') {
       navigate('/');
+    };
+
+    if (isEmpty(orders)) {
+      selectOrders(page)
+      .then((response) => {
+        dispatch(adminActions.setOrders({ page: page, data: response.data }));
+      })
+      .catch((err) => {
+        toast.error(err.response.data || err.message);
+        if (err.response.status === 403) {
+          setTimeout(() => {
+            localStorage.clear();
+            dispatch(userActions.logOut());
+            navigate('/');
+          }, "1500");
+        }
+      });
+    };
+
+    if (isEmpty(usersList)) {
+      getUsersList()
+      .then((response) => {
+        dispatch(adminActions.setUsersList(response.data));
+      })
+      .catch((err) => {
+        toast.error(err.response.data || err.message);
+        if (err.response.status === 403) {
+          setTimeout(() => {
+            localStorage.clear();
+            dispatch(userActions.logOut());
+            navigate('/');
+          }, "1500");
+        }
+      });
     }
+
+
   });
 
-  const [sortBy, setSort] = useState('date');
+  const [sortCr, setSort] = useState('date');
   const activeOrders = useSelector((state) => state.adminState.activeOrders);
-
-  const [page, setPage] = useState('orders');
-
-
-
-  const handleSwitchPage = () => {
-    page === 'orders' ? setPage('archive') : setPage('orders')
-  }
 
 
 
   return (
     <Container>
       <Row>
-        <Col id='orders_dropdown'>
-          <Dropdown>
+        <Col>
+          <Dropdown className='noActiveDropdown'>
             <Dropdown.Toggle variant="primary" className='text-secondary'>
               {i18n.t('admin_orders.dropdown_title')}
             </Dropdown.Toggle>
@@ -65,9 +116,10 @@ const Orders = () => {
           </Button>
         </Col>
       </Row>
-      {page === 'orders' ? <ActiveOrders /> : <ArchivedOrders />}
 
+      <OrdersList orders={ordersWithNames} mode='admin' sortCr={sortCr} />
 
+      <ToastContainer />
     </Container>
   );
 };

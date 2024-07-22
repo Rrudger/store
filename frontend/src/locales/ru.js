@@ -15,7 +15,7 @@ export default {
       success_registration: 'Регистрация прошла успешно!',
     },
     client_area: {
-      changeNameBtn: 'изменить имя пользователя',
+      changeNameBtn: 'изменить имя',
       changePasswordBtn: 'изменить пароль',
       deleteAccBtn: 'удалить аккаунт',
       deleteSuccessMessage: 'Ваш аккаунт был успешно удален',
@@ -64,7 +64,7 @@ export default {
     },
     alter_modal: {
       client: {
-        title_name: 'Изменить имя пользователя',
+        title_name: 'Изменить имя',
         title_password: 'Изменить пароль',
         text: 'test',
         name_label: 'Новое имя пользователя',
@@ -88,6 +88,9 @@ export default {
       storage: 'Нажмите чтобы сортировать по',
       add_item: 'Нажмите чтобы добавить товар',
       exit_btn: 'Нажмите чтобы выйти из аккаунта',
+      tippy_status: 'Заказ был',
+      tippy_date: 'Заказ размещен',
+      tippy_user_name: 'Имя пользователя: ',
     },
     admin: {
       users_title: 'Пользователи',
@@ -119,8 +122,6 @@ export default {
     user_orders: {
       no_orders: 'У вас пока нет заказов...',
       delivery: 'доставка:',
-      tippy_status: 'Заказ был',
-      tippy_date: 'Заказ размещен',
       paid: 'оплачен',
       sent: 'отправлен',
       cancelled: 'отменен',
@@ -132,6 +133,14 @@ export default {
       sort_by_date: 'по дате',
       sort_by_user: 'по пользователям',
       sort_by_status: 'по статусу',
+    },
+    order_card: {
+      dropdown_title: 'Изменить статус',
+      processed: 'Обработан',
+      paid: 'Оплачен',
+      sent: 'Отправлен',
+      cancelled: 'Отменен',
+      archived: 'Отправлен в архив',
     },
   },
 };

@@ -18,7 +18,7 @@ const UserOrders = () => {
 
   const userId = useSelector((state) => state.userState.id);
   const orders = useSelector((state) => state.userState.orders);
-  const keys = sortBy('time', 'des', orders);
+  const keys = sortBy('date', 'des', orders);
   const goodsList = useSelector((state) => state.mainState.goodsList);
 
   useEffect(() => {

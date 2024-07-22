@@ -22,8 +22,14 @@ import { getStorage } from './utils/dbUtils.js';
 
 const App = () => {
   const dispatch = useDispatch();
-  const lang = useSelector((state) => state.mainState.lang);
-  i18n.changeLanguage(lang);
+  if (!localStorage.getItem('lang')) localStorage.setItem('lang', 'en');
+  const lang = localStorage.getItem('lang');
+dispatch(mainActions.setLang(lang));
+  const langState = useSelector((state) => state.mainState.lang);
+
+
+    i18n.changeLanguage(lang);
+
 
 const cart = localStorage.getItem('cart');
   if (cart) {

@@ -106,27 +106,50 @@ const sortByPrice = (list) => {
   });
 };
 
-const sortByTime = (list) => {
+const sortByDate = (list) => {
   return Object.keys(list).sort((a, b) => {
     const aItem = list[a]['created_at'];
     const bItem = list[b]['created_at'];
     if (aItem > bItem) return 1;
     if (aItem < bItem) return -1;
     if (aItem == bItem) return 0;
-
   });
+};
+
+const sortByUser = (list) => {
+  return Object.keys(list).sort((a,b) => {
+    const aItem = list[a]['user_id'];
+    const bItem = list[b]['user_id'];
+    if (aItem > bItem) return 1;
+    if (aItem < bItem) return -1;
+    if (aItem == bItem) return 0;
+  })
+};
+
+const sortByStatus = (list) => {
+  return Object.keys(list).sort((a,b) => {
+    const aItem = list[a]['status'];
+    const bItem = list[b]['status'];
+    if (aItem > bItem) return 1;
+    if (aItem < bItem) return -1;
+    if (aItem == bItem) return 0;
+  })
 }
 
 const sortBy = (attr, order, list) => {
   if (order === 'asc') {
     if (attr === 'name') return sortByName(list);
     if (attr === 'price') return sortByPrice(list);
-    if (attr === 'time') return sortByTime(list);
+    if (attr === 'date') return sortByDate(list);
+    if (attr === 'user') return sortByUser(list);
+    if (attr === 'status') return sortByStatus(list).reverse();
     return sortByQuantity(attr, list);
   }
   if (attr === 'name') return sortByName(list).reverse();
   if (attr === 'price') return sortByPrice(list).reverse();
-  if (attr === 'time') return sortByTime(list).reverse();
+  if (attr === 'date') return sortByDate(list).reverse();
+  if (attr === 'user') return sortByUser(list).reverse();
+  if (attr === 'status') return sortByStatus(list);
   return sortByQuantity(attr, list).reverse();
 
 };

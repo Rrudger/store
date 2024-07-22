@@ -89,6 +89,9 @@ export default {
       storage: 'Click to sort by',
       add_item: 'Click to add an item',
       exit_btn: 'Click to log out',
+      tippy_status: 'The order has been',
+      tippy_date: 'Created at',
+      tippy_user_name: 'Username: ',
     },
     admin: {
       users_title: 'Users',
@@ -120,8 +123,7 @@ export default {
     user_orders: {
       no_orders: 'You have no orders yet...',
       delivery: 'delivery:',
-      tippy_status: 'The order has been',
-      tippy_date: 'Created at',
+
       paid: 'paid',
       sent: 'sent',
       cancelled: 'cancelled',
@@ -133,6 +135,14 @@ export default {
       sort_by_date: 'date',
       sort_by_user: 'user',
       sort_by_status: 'status',
+    },
+    order_card: {
+      dropdown_title: 'Switch status',
+      processed: 'Processed',
+      paid: 'Paid',
+      sent: 'Sent',
+      cancelled: 'Cancelled',
+      archived: 'Archived',
     },
   },
 };

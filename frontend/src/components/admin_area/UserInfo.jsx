@@ -78,7 +78,7 @@ const UserInfo = () => {
         activeOrders={activeOrders}
         archivedOrders={archivedOrders}
         />
-        <OrdersList orders={orders}/>
+        <OrdersList orders={orders} mode='admin_info' sortCr='date' />
         </>
       }
       <ToastContainer />
