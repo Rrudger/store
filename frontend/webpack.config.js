@@ -19,6 +19,7 @@ const config = {
     devServer: {
         open: true,
         allowedHosts: "all",
+          disableHostCheck: true,
         host: 'localhost',
     },
     plugins: [
